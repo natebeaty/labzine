@@ -1,0 +1,36 @@
+{% load markup %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta name="ROBOTS" content="ALL" />
+	<meta http-equiv="imagetoolbar" content="no" />
+	<meta name="MSSmartTagsPreventParsing" content="true" />
+
+	<title>LAB { {% block title %}{% endblock %} }</title>
+	<link href="/media/css/{% block cssid %}base{% endblock %}.css" rel="stylesheet" type="text/css" media="screen" />
+	<link rel="shortcut icon" href="favicon.ico" />
+	<link href="/media/css/print.css" rel="stylesheet" type="text/css" media="print" />
+	{% block extrahead %}{% endblock %}
+	<script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+</head>
+
+<body id="{% block sectionid %}generic{% endblock %}" class="{% block coltype %}default{% endblock %}">
+
+	<p class="hidden">
+		<a href="#content">Skip to content</a>
+	</p>
+
+<div id="wrapper">
+
+	<div id="header">
+		<h1 id="logo"><a href="/" id="home-link"><span>LAB</span></a></h1>
+	</div><!-- END Header -->
+
+    <div id="content">
+			{% block content %}{% endblock %}
+    </div><!-- END #content -->
+
+</div><!-- END #wrapper -->
+
+</body>
+</html>

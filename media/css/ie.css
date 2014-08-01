@@ -1,0 +1,24 @@
+body { min-width:110em; }
+#wrapper { width:90em; }
+#content { width:50em; }
+#side-nav { width:25em; }
+ul.issueLinks li { margin-bottom:0;  }
+body.onecol #content {
+    margin-left:4.5em;
+    width:60em;
+}
+.column {
+    float:left;
+    margin-right:2em;
+    width:20em;
+}
+ul.article-list li {
+    line-height:.4em; 
+}
+#article-meta { width:10em; }
+
+/* PNG support for god's least favorite browser */
+img,
+a#butt-issues {
+    behavior: url(/media/css/iepngfix.htc); 
+} 

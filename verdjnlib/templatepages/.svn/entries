@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="10"
+   name=""
+   committed-date="2006-08-10T06:48:49.743719Z"
+   url="http://www.verdjn.com/svn/verdjnlib/templatepages"
+   last-author="bryan"
+   kind="dir"
+   uuid="f6aced25-fe19-0410-8b7f-d46f9ee4948c"
+   repos="http://www.verdjn.com/svn"
+   revision="17"/>
+<entry
+   committed-rev="10"
+   name="views.py"
+   text-time="2006-09-11T06:37:34.000000Z"
+   committed-date="2006-08-10T06:48:49.743719Z"
+   checksum="43952a2095c6860f4ad45526ba4c42f0"
+   last-author="bryan"
+   kind="file"
+   prop-time="2006-09-11T06:37:34.000000Z"/>
+<entry
+   committed-rev="1"
+   name="__init__.py"
+   text-time="2006-09-11T06:37:34.000000Z"
+   committed-date="2006-08-02T00:43:22.968761Z"
+   checksum="d41d8cd98f00b204e9800998ecf8427e"
+   last-author="bryan"
+   kind="file"
+   prop-time="2006-09-11T06:37:34.000000Z"/>
+<entry
+   committed-rev="9"
+   name="urls.py"
+   text-time="2006-09-11T06:37:34.000000Z"
+   committed-date="2006-08-10T06:48:32.833960Z"
+   checksum="da6d9fd875d05f6a1be8b9b5f10ccdee"
+   last-author="bryan"
+   kind="file"
+   prop-time="2006-09-11T06:37:34.000000Z"/>
+</wc-entries>

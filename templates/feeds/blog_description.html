@@ -1,0 +1,6 @@
+{% load markup %}
+{% if obj.excerpt %}
+{{ obj.excerpt|textile }}	
+{% else %}
+{{ obj.body|textile }}
+{% endif %}

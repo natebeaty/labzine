@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load markup %}
+{% debug %}
+{% block title %}browse{% endblock %}
+{% block sectionid %}browse{% endblock %}
+{% block extrahead %}
+    <style type="text/css" media="screen">
+        #side-nav { width:13em; }
+        #content a { color:#{{ issue.hex_color }};}
+        #content a:hover { color:#000;}
+        a#butt-issues { background-color:#{{ issue.hex_color }}; }
+        /* {{ article.issue.name }}*/
+        /* all headers to current issue hex color */
+        h2,h3,h4 { color:#{{ issue.hex_color }}; }
+    </style>
+{% endblock %}
+{% block breadcrumb %}<a href="/">home</a> / browse{% endblock %}
+
+{% block side-nav %}		
+{% endblock %}
+
+{% block content %}
+    <div id="issue-list">
+		<h2>issues</h2>
+    	<ul class="simple-list issues">
+		{% for object in issues %}
+        <a href="{{ object.get_absolute_url }}" title="LAB {{ object.name|escape}}"><img src="/media/{{ object.image }}" alt="LAB issue {{ object.name|escape }} cover" /></a>
+		{% endfor %}
+		</ul>
+	</div>
+        
+	<div class="spacer">&nbsp;</div>
+
+	{% comment %}
+	<div class="col1">
+		<h2>featured</h2>
+    	<ul class="article-list">
+		{% for feature in featured %}
+        <li><span class="article-box" style="background:#{{ feature.article.hex_color }}"><span class="article-box-number">{{ feature.article.display_page_number|stringformat:"02d" }}</span></span>
+        	<a class="article-link{% ifequal feature.article.id article.id %} active{% endifequal %}" id="nav-article-{{ feature.article.id }}" title="{{ feature.article.name|escape }}" href="/issues/{{ feature.article.issue.slug }}/articles/{{feature.article.slug}}/" >
+        		<span class="article-title">{{ feature.article.title|escape }}</span> |
+        		<span class="article-person">{{ feature.article.art_people|escape }}</span>
+        	</a>
+        </li>
+		{% endfor %}
+		</ul>
+	</div>
+
+	<div class="col2">
+		<h2>favorites</h2>
+    	<ul class="article-list">
+		{% for object in favorites %}
+		{% include "articles/article_li.html" %}
+		{% endfor %}
+		</ul>
+	</div>
+	{% endcomment %}
+
+	<div class="spacer">&nbsp;</div>
+	
+	<div class="col1">
+		<h2>tags</h2>
+		<ul class="simple-list tags">
+		{% for row in tag_cloud %}
+		<li class="{{ row.pop }}"><a title="view all items tagged {{ row.value|escape }}" href="/tag/{{ row.norm_value }}/">{{ row.value }} <span class="tag-count">({{ row.tag_count }})</span></a></li>
+		{% endfor %}
+		</ul>
+	</div>
+
+	<div class="col2">
+		<h2>colors</h2>
+		<ul class="simple-list colors">
+		{% for object in colors %}
+		<li><a href="{{ object.get_absolute_url }}" title="{{ object.title|escape }}"><span class="article-box" style="background:#{{ object.hex_color }}"></span><em>{{ object.title|escape }}</em></a></li>
+		{% endfor %}
+		</ul>
+	</div>
+
+{% endblock %}

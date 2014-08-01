@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% load markup %}
+{% load article_extras %}
+
+{% block title %}issue {{ article.issue.name|escape }} : {{ article.title|escape }} : {{ article.art_people|escape }}{% endblock %}
+{% block extrahead %}
+	<style type="text/css" media="screen">
+        @import "/media/css/star_rating.css";
+		#article-detail-box { background:#{{ article.hex_color }}; }
+		.article-detail-title .article-title { font-size:1.1em; color:#{{ article.hex_color }};}
+		h3,.linkTitle,h3 a { color:#{{ article.hex_color }};}
+		#share-links { margin-top:1.6em; vertical-align: text-bottom;}
+	</style>
+{% endblock %}
+{% block sectionid %}issues{% endblock %}
+{% block breadcrumb %}<a href="/">Home</a> / <a href="/issues/">Issues</a> / {{ article.issue.name }}{% endblock %}
+
+{% block side-nav %}
+	<h2 id="issue-{{ issue.slug }}"><span>issue {{ article.issue.name }}</span></h2>
+	<h3 id="contents"><span>select an article:</span></h3>
+
+	<ul class="article-list">
+	{% for object in article.issue.article_set.all %}
+	{% include "articles/article_li.html" %}
+	{% endfor %}
+	</ul>
+{% endblock %}
+
+{% block content %}
+	<div class="issue detail">
+        {% if pageflipper_disabled %}
+		<div id="page-flipper">
+		<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+		 codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" 
+			height="340" width="520"> 
+			<param name="movie" value="/media/pageflip/lab_pageflip.swf?xmlFile=/pageflip/{{ article.id }}.xml"> 
+			<param name="quality" value="high">
+			<embed src="/media/pageflip/lab_pageflip.swf?xmlFile=/pageflip/{{ article.id }}.xml" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer"
+		 	type="application/x-shockwave-flash" height="340" width="520"> 
+		</object>
+        <div id="preview-controls">
+        {% include "articles/pageflip_toggle.html" %}
+        <div id="rating-wrapper">
+            {% include "articles/rating.html" %}
+        </div>
+		</div>
+		</div><!-- END #page-flipper -->
+        {% else %}
+        <div id="article-spread">
+            <div id="spread-images">
+            <img src="/media/pageflip/pages/issue{{ article.issue.slug }}/issue{{ article.issue.slug }}-{{ article.page_start|stringformat:"02d" }}.jpg" alt="Article Page Image" />
+            {% ifnotequal article.page_start article.page_end %}
+            <img src="/media/pageflip/pages/issue{{ article.issue.slug }}/issue{{ article.issue.slug }}-{{ article.page_start|add:"1"|stringformat:"02d" }}.jpg" alt="Article Page Image" />
+            {% endifnotequal %}
+            </div>
+            <div id="preview-controls">
+            {% include "articles/pageflip_toggle.html" %}
+            <div id="rating-wrapper">
+                {% include "articles/rating.html" %}
+            </div>
+    		</div>
+        </div>
+        {% endif %}
+
+		<div id="article-meta">
+			{% if article.tags %}
+			<h3>article tags</h3>
+			<ul class="article-tags">
+				{% for tag in article.tags.all %}
+					<li><a href="/tag/{{ tag.norm_value }}/">{{ tag.value }}</a></li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+			<h3>related links</h3>
+			<ul class="article-links">
+			{% for person in article.person.all %}
+				{% if person.url %}
+				<li>{{ person.url|urlize }}</li>
+				{% endif %}
+				{% if person.url2 %}
+				<li>{{ person.url2|urlize }}</li>
+				{% endif %}
+				{% if person.url3 %}
+				<li>{{ person.url3|urlize }}</li>
+				{% endif %}
+				{% if person.url4 %}
+				<li>{{ person.url4|urlize }}</li>
+				{% endif %}
+			{% endfor %}
+			{% for person in article.person.all %}
+				{% if person.links.all %}
+				{% for link in person.links.all %}
+				<li><a href="{{ link.url }}">{{ link.name }}</a></li>
+				{% endfor %}
+				{% endif %}
+			{% endfor %}
+			{% if article.links.all %}
+			{% for link in article.links.all %}
+			<li><a href="{{ link.url }}">{{ link.name }}</a></li>
+			{% endfor %}
+			{% endif %}
+			</ul>
+		</div>
+		
+        <div id="toggle-help-target" class="hideOnLoad target">
+            {% if pageflipper_disabled %}
+            <img src="/media/img/help_div.gif" alt="Help Box" />
+            {% else %}
+            <img src="/media/img/help_div_off.gif" alt="Help Box" />
+			{% endif %}
+            </div>
+
+		<div class="spacer">&nbsp;</div>
+		
+		<span id="article-detail-box"></span>
+
+		<h2 class="article-detail-title">
+		<span class="article-title">{{ article.title|escape }}</span><br />
+		<span class="article-person">{{ article.art_people|escape }}</span>
+		</h2>
+				
+		<div class="spacer">&nbsp;</div>
+		
+        {% if article.webpdf %}
+		    <h3 id="download">download PDF: <a class="headerLink" href="/media/{{ article.webpdf }}"><span class="linkExtra">this article</span></a> | <a class="headerLink" href="/media/{{ article.issue.webpdf }}"><span class="linkExtra">entire issue</span></a></h3>
+        {% endif %}
+        {% if article.issue.lulu_link %}
+		    <h3 id="print"><a class="headerLink" href="{{ article.issue.lulu_link }}">purchase issue <span class="linkExtra">via lulu</span></a></h3>
+        {% endif %}
+
+		<h3 id="share"><span>share</span></h3>	
+		<a id="share-delicious" title="share on del.icio.us" rel="nofollow" href="http://del.icio.us/post?url=http://lab-zine.com{{ article.get_absolute_url }}"><span>del.ico.us</span></a>
+		<a id="share-digg" title="share on digg" rel="nofollow" href="http://digg.com/submit?phase=2&url=http://lab-zine.com{{ article.get_absolute_url }}"><span>digg</span></a>
+		<a id="share-reddit" title="share on reddit" rel="nofollow" href="http://reddit.com/submit?url=http://lab-zine.com{{ article.get_absolute_url }}"><span>reddit</span></a>
+		<a id="share-newsvine" title="share on newsvine" rel="nofollow" href="http://www.newsvine.com/_tools/seed&save?u=http://lab-zine.com{{ article.get_absolute_url }}"><span>newsvine</span></a>
+
+        <div class="spacer">&nbsp;</div>
+
+		{% if article.text %}
+		<div class="spacer">&nbsp;</div>
+		<h3 id="text"><a href="#text" class="toggler closed" id="toggle-text"><span>text version</span></a></h3>
+		<div id="toggle-text-target" class="hideOnLoad target article-text">
+			{{ article.text|textile }}
+		</div>
+		{% endif %}
+
+		<div class="spacer">&nbsp;</div>
+		
+		{% load comments %}
+		{% get_free_comment_list for articles.article article.id as comment_list %}
+		{% get_free_comment_count for articles.article article.id as comment_count %}
+		{% if comment_list %}
+		<h3 id="comments" class=""><a class="toggler closed" id="toggle-comments" href="#comments">comments ({{ comment_count }})</a></h3>
+		<div id="toggle-comments-target" class="hidden">
+			{% include "comments/comment_listing.html" %}
+		</div>
+		{% endif %}
+
+		<h3 id="post-a-comment"><a class="toggler closed" href="#post-a-comment" id="toggle-post">post a comment</a></h3>
+		<div id="toggle-post-target" class="hideOnLoad target">
+		{% free_comment_form for articles.article article.id %}
+		</div>
+
+	</div>
+	
+{% endblock %}

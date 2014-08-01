@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% load markup %}
+{% load article_extras %}
+
+{% block title %}issue {{ article.issue.name|escape }} : {{ article.title|escape }} : {{ article.art_people|escape }}{% endblock %}
+{% block extrahead %}
+	<style type="text/css" media="screen">
+        @import "/media/css/star_rating.css";
+		#article-detail-box { background:#{{ article.hex_color }}; }
+		.article-detail-title .article-title { font-size:1.1em; color:#{{ article.hex_color }};}
+		h3,.linkTitle,h3 a { color:#{{ article.hex_color }};}
+		#share-links { margin-top:1.6em; vertical-align: text-bottom;}
+        a#butt-issues { background-color:#{{ article.issue.hex_color }}; }
+        /* {{ article.issue.name }}*/
+        /* all headers to current issue hex color */
+		#side-nav h2 { color:#{{ article.issue.hex_color }}; }
+        h2,h3,h4 { color:#{{ article.hex_color }}; }
+	</style>
+{% endblock %}
+{% block sectionid %}issues{% endblock %}
+{% block breadcrumb %}<a href="/">Home</a> / <a href="/issues/">Issues</a> / {{ article.issue.name }}{% endblock %}
+
+{% block side-nav %}
+	{% if article.issue.image %}
+	<div class="issue-image-small"><a href="{{ article.issue.get_absolute_url }}" title="LAB {{ article.issue.name|escape}}"><img src="/media/{{ article.issue.image }}" alt="LAB issue {{ article.issue.name|escape }} cover" /></a></div>
+	{% endif %}
+	
+	<h2 class="sidebar-issue" id="issue-{{ article.issue.slug }}"><span>issue {{ article.issue.name }}</span></h2>
+	<h3 id="contents"><span>select an article:</span></h3>
+
+	<ul class="article-list">
+	{% for object in article.issue.article_set.all %}
+    {% if object.is_active %}
+	    {% include "articles/article_li.html" %}
+    {% endif %}
+	{% endfor %}
+	</ul>
+{% endblock %}
+
+{% block content %}
+	<div class="issue detail">
+        <div id="article-spread">
+            {% if article.page_start %}
+                
+            {% endif %}
+            <div id="spread-images">
+            {% if article.image_left %}
+	            <img src="/media/{{ article.image_left }}">
+			{% else %}
+				<img src="/media/pageflip/pages/issue{{ article.issue.slug }}/issue{{ article.issue.slug }}-{{ article.page_start|stringformat:"02d" }}.jpg" alt="Article Page Image" />
+            {% endif %}
+
+            {% if article.image_right %}
+	            <img src="/media/{{ article.image_right }}">
+	        {% else %} 
+	        	{% ifnotequal article.page_start article.page_end %}
+	            	<img src="/media/pageflip/pages/issue{{ article.issue.slug }}/issue{{ article.issue.slug }}-{{ article.page_start|add:"1"|stringformat:"02d" }}.jpg" alt="Article Page Image" />
+	            {% endifnotequal %}
+	        {% endif %}
+            </div>
+            <div id="preview-controls">
+            {% include "articles/pageflip_toggle.html" %}
+            <div id="rating-wrapper">
+                {% include "articles/rating.html" %}
+            </div>
+    		</div>
+        </div>
+
+		<div id="article-meta">
+			{% if article.tags %}
+			<h3>article tags</h3>
+			<ul class="article-tags">
+				{% for tag in article.tags.all %}
+					<li><a href="/tag/{{ tag.norm_value }}/">{{ tag.value }}</a></li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+			<h3>related links</h3>
+			<ul class="article-links">
+			{% for person in article.person.all %}
+				{% if person.url %}
+				<li>{{ person.url|urlize }}</li>
+				{% endif %}
+				{% if person.url2 %}
+				<li>{{ person.url2|urlize }}</li>
+				{% endif %}
+				{% if person.url3 %}
+				<li>{{ person.url3|urlize }}</li>
+				{% endif %}
+				{% if person.url4 %}
+				<li>{{ person.url4|urlize }}</li>
+				{% endif %}
+			{% endfor %}
+			{% for person in article.person.all %}
+				{% if person.links.all %}
+				{% for link in person.links.all %}
+				<li><a href="{{ link.url }}">{{ link.name }}</a></li>
+				{% endfor %}
+				{% endif %}
+			{% endfor %}
+			{% if article.links.all %}
+				{% for link in article.links.all %}
+				<li><a href="{{ link.url }}">{{ link.name }}</a></li>
+				{% endfor %}
+			{% endif %}
+			</ul>
+			{% if article.author.all %}
+				<h3>author{{ article.author.all|pluralize }}</h3>
+				<ul class="article-authors">
+				{% for author in article.author.all %}
+					<li>{{ author.first_name }} {{ author.last_name }}</li>
+				{% endfor %}
+				</ul>
+			{% endif %}
+			
+		</div>
+		
+        {% comment %}
+        <div id="toggle-help-target" class="hideOnLoad target">
+            {% if pageflipper_disabled %}
+            <img src="/media/img/help_div.gif" alt="Help Box" />
+            {% else %}
+            <img src="/media/img/help_div_off.gif" alt="Help Box" />
+			{% endif %}
+        </div> }
+        {% endcomment %}
+
+		<div class="spacer">&nbsp;</div>
+		
+		<span id="article-detail-box"></span>
+
+		<h1 class="article-detail-title">
+		<span class="article-title">{{ article.title|escape }}</span><br />
+		<span class="article-person">{{ article.art_people|escape }}</span>
+		</h1>
+				
+		<div class="spacer">&nbsp;</div>
+		
+        {% if article.webpdf %}
+		    <h3 id="download">download PDF: <a class="headerLink" href="/media/{{ article.webpdf }}"><span class="linkExtra">this article</span></a> | <a class="headerLink" href="/media/{{ article.issue.webpdf }}"><span class="linkExtra">entire issue</span></a></h3>
+        {% endif %}
+        {% if article.issue.print_version_link %}
+		    <h3 id="print"><a class="headerLink" href="{{ article.issue.print_version_link }}">purchase <span class="linkExtra">print issue</span></a></h3>
+        {% endif %}
+
+		<h3 id="share"><span>share</span></h3>	
+		<a id="share-delicious" title="share on del.icio.us" rel="nofollow" href="http://del.icio.us/post?url=http://lab-zine.com{{ article.get_absolute_url }}"><span>del.ico.us</span></a>
+		<a id="share-digg" title="share on digg" rel="nofollow" href="http://digg.com/submit?phase=2&url=http://lab-zine.com{{ article.get_absolute_url }}"><span>digg</span></a>
+		<a id="share-reddit" title="share on reddit" rel="nofollow" href="http://reddit.com/submit?url=http://lab-zine.com{{ article.get_absolute_url }}"><span>reddit</span></a>
+		<a id="share-newsvine" title="share on newsvine" rel="nofollow" href="http://www.newsvine.com/_tools/seed&save?u=http://lab-zine.com{{ article.get_absolute_url }}"><span>newsvine</span></a>
+
+        <div class="spacer">&nbsp;</div>
+
+		{% if article.text %}
+		<div class="spacer">&nbsp;</div>
+		<h3 id="text"><a href="#text" class="toggler closed" id="toggle-text"><span>text version</span></a></h3>
+		<div id="toggle-text-target" class="hideOnLoad target article-text">
+			{{ article.text|textile }}
+		</div>
+		{% endif %}
+
+		<div class="spacer">&nbsp;</div>
+		
+	</div>
+	
+{% endblock %}

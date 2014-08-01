@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load markup %}
+{% load article_extras %}
+
+{% block title %}projects{% endblock %}
+{% block extrahead %}
+<style type="text/css" media="screen">
+	#side-nav { width:12em;  }
+	.project h3 { color:#{{ featured_issue.hex_color }};}
+	a { color:#{{ featured_issue.hex_color }};}
+	a:hover { color:#000;}
+</style>
+{% endblock %}
+{% block sectionid %}projects{% endblock %}
+{% block breadcrumb %}<a href="/">Home</a> / <a href="/projects/">projects</a>{% endblock %}
+
+{% block side-nav %}
+	<h3><span>all projects</span></h3>
+
+	<ul class="project-list">
+	{% for object in issue_list %}
+		<li><a href="/projects/issue{{ object.slug }}/">Issue {{ object.name }}</a></li>
+	{% endfor %}
+	</ul>
+{% endblock %}
+
+{% block content %}
+	<h2>projects for issue {{ issue.name }}</h2>
+
+	{% for project in issue.project_set.all %}
+		{% include "articles/project_listing.html" %}
+	{% endfor %}
+	
+{% endblock %}

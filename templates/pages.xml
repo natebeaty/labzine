@@ -1,0 +1,9 @@
+<content width="250" transparency="false" height="324" hcover="false" startPage="{{ startPage }}">
+{% for page in pages %}
+	<page
+		src="{{ page.src }}"
+		{% if page.preLoad %}preLoad="{{ page.preLoad }}"{% endif %}
+		{% if page.pageFunction %}pageFunction="{{ page.pageFunction }}"{% endif %}
+	/>
+{% endfor %}
+</content>

@@ -1,0 +1,9 @@
+{% extends "blog/base_blog.html" %}
+
+{% block content %}
+
+	{% for blog in category.blog_set.all %}
+		{% include "blog/blog_listing.html" %}
+	{% endfor %}
+	
+{% endblock %}

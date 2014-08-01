@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load markup %}
+
+{% block title %}issue {{ issue.name|escape }} : articles{% endblock %}
+{% block sectionid %}issues{% endblock %}
+{% block extrahead %}
+    <style type="text/css" media="screen">
+        #content a { color:#{{ issue.hex_color }};}
+        #content a:hover { color:#000;}
+        a#butt-issues { background-color:#{{ issue.hex_color }}; }
+        /* {{ article.issue.name }}*/
+        /* all headers to current issue hex color */
+        h2,h3,h4 { color:#{{ issue.hex_color }}; }
+    </style>
+{% endblock %}
+{% block breadcrumb %}<a href="/">home</a> / issue {{ issue.name }}{% endblock %}
+
+{% block side-nav %}
+	<h2 id="issue-{{ issue.slug }}"><span>issue {{ issue.name }}</span></h2>
+	<h3 id="contents"><span>select an article:</span></h3>
+
+	<ul class="article-list">
+	{% for object in issue.article_set.all %}
+    {% if object.is_active %}
+    	{% include "articles/article_li.html" %}
+	{% endif %}
+	{% endfor %}
+	</ul>
+{% endblock %}
+
+{% block content %}
+	<div class="issue detail">
+
+		<div class="page-flipper">
+		<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+		 codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" 
+			height="340" width="520"> 
+			<param name="movie" value="/media/pageflip/lab_pageflip.swf?xmlFile=/pageflip/homepage_{{ issue.id }}.xml"> 
+			<param name="quality" value="high">
+			<embed src="/media/pageflip/lab_pageflip.swf?xmlFile=/pageflip/homepage_{{ issue.id }}.xml" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer"
+		 	type="application/x-shockwave-flash" height="340" width="520"> 
+		</object>
+		</div>
+        
+        		<p class="instructions"> Flip through a preview of the issue using the Previewer above (click page corners to turn them). 
+			You can also navigate to an article page via the table of contents on the left, where you can download the article in PDF format, 
+			leave comments, or view relevant links + tags.
+            </p>
+			
+			<p class="instructions">
+			    You can always go for the whole enchilada: <a href="/media/{{ issue.webpdf }}">download the entire issue in PDF format</a> (best viewed in 
+			    <a href="http://www.adobe.com/products/acrobat/readstep2.html">Adobe Reader</a>). 
+			    Or, if you prefer a more tactile approach, <a href="{{ issue.lulu_link }}">order the ink &amp; tree hardcopy via Lulu</a>.
+			</p>
+		<div class="spacer">&nbsp;</div>
+
+	</div>
+	
+{% endblock %}

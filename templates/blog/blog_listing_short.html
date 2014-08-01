@@ -1,0 +1,7 @@
+{% if blog.is_active %}
+	{% load markup %}
+	<li><span class="article-box" style="background:#ccc"><span class="article-box-number">{{ blog.id|stringformat:"02d" }}</span></span>
+        <a class="article-link" href="{{ blog.get_absolute_url }}" title="perma-link for {{ blog.title|escape }}">
+            <span class="article-title">{{ blog.title }}</span>
+	</li>
+{% endif %}

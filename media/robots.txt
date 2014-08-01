@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /rate/ # article ratings
+Disallow: /toggle_pageflipper/ # toggles pageflipper
+Disallow: /media/pdf/

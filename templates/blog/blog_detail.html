@@ -1,0 +1,26 @@
+{% extends "blog/base_blog.html" %}
+{% block title %}blog : {{ blog.title|escape }}{% endblock %}
+{% load markup %}
+{% block content %}
+<div class="blog-entry">
+	<h2>{{ blog.title }}</h2>
+	{% if blog.image %}
+		<img class="blog-image" rel="nofollow" src="/media/{{ blog.image }}" />
+	{% endif %}
+    <div class="blog-text">
+	{{ blog.body|textile }}
+    </div>
+	<div class="meta">
+		<p>
+		<a class="permalink" href="{{ blog.get_absolute_url }}" title="perma-link for {{ blog.title|escape }}">{{ blog.date_added|date:"F d, Y" }}</a>
+		{% if blog.tags.all %}
+			| tags: {% for tag in blog.tags.all %}
+				<a href="/tag/{{ tag.norm_value }}">{{ tag.value }}</a>
+			{% endfor %}
+		{% endif %}
+		</p>
+	</div>
+	<hr class="dotted" />
+</div>
+
+{% endblock %}

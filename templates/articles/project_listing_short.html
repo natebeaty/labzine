@@ -1,0 +1,4 @@
+{% load markup %}
+<li><span class="article-box" style="background:#ccc"><span class="article-box-number">{{ project.id|stringformat:"02d" }}</span></span>
+<a href="{{ project.get_absolute_url }}" title="perma-link for {{ project.title|escape }}">{{ project.title }}</a>
+</li>

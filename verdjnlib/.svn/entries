@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="17"
+   name=""
+   committed-date="2006-09-10T05:25:58.365363Z"
+   url="http://www.verdjn.com/svn/verdjnlib"
+   last-author="bryan"
+   kind="dir"
+   uuid="f6aced25-fe19-0410-8b7f-d46f9ee4948c"
+   repos="http://www.verdjn.com/svn"
+   revision="17"/>
+<entry
+   name="context_processors"
+   kind="dir"/>
+<entry
+   name="fields"
+   kind="dir"/>
+<entry
+   committed-rev="1"
+   name="__init__.py"
+   text-time="2006-09-11T06:37:34.000000Z"
+   committed-date="2006-08-02T00:43:22.968761Z"
+   checksum="d41d8cd98f00b204e9800998ecf8427e"
+   last-author="bryan"
+   kind="file"
+   prop-time="2006-09-11T06:37:34.000000Z"/>
+<entry
+   name="templatepages"
+   kind="dir"/>
+</wc-entries>

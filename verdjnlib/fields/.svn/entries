@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="17"
+   name=""
+   committed-date="2006-09-10T05:25:58.365363Z"
+   url="http://www.verdjn.com/svn/verdjnlib/fields"
+   last-author="bryan"
+   kind="dir"
+   uuid="f6aced25-fe19-0410-8b7f-d46f9ee4948c"
+   repos="http://www.verdjn.com/svn"
+   revision="17"/>
+<entry
+   committed-rev="17"
+   name="deletecheckbox.py"
+   text-time="2006-09-11T06:37:34.000000Z"
+   committed-date="2006-09-10T05:25:58.365363Z"
+   checksum="a5a519409657eb5c437f4e29a407228f"
+   last-author="bryan"
+   kind="file"
+   prop-time="2006-09-11T06:37:34.000000Z"/>
+<entry
+   committed-rev="16"
+   name="photofield.py"
+   text-time="2006-09-11T06:37:34.000000Z"
+   committed-date="2006-09-10T05:24:54.472098Z"
+   checksum="71f51ed0d2be30742355d3983f2d4b26"
+   last-author="bryan"
+   kind="file"
+   prop-time="2006-09-11T06:37:34.000000Z"/>
+<entry
+   committed-rev="7"
+   name="__init__.py"
+   text-time="2006-09-11T06:37:34.000000Z"
+   committed-date="2006-08-10T01:01:08.052543Z"
+   checksum="1975540473b553acbd0061c30ae0378a"
+   last-author="bryan"
+   kind="file"
+   prop-time="2006-09-11T06:37:34.000000Z"/>
+<entry
+   committed-rev="8"
+   name="filefields.py"
+   text-time="2006-09-11T06:37:34.000000Z"
+   committed-date="2006-08-10T03:12:38.210818Z"
+   checksum="0dd8ea33de935468b23eeb169f86ff9b"
+   last-author="bryan"
+   kind="file"
+   prop-time="2006-09-11T06:37:34.000000Z"/>
+</wc-entries>

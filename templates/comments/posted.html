@@ -1,0 +1,16 @@
+{% extends "base1col.html" %}
+
+{% block title %}Comment posted{% endblock %}
+
+{% block content %}
+
+
+<h1>Thanks for the comment</h1>
+
+<p>It may take a few minutes for it to show up due to caching.</p>
+
+{% if object %}
+<p><a href="{{ object.get_absolute_url }}">Back to the post</a></p>
+{% endif %}
+
+{% endblock %}

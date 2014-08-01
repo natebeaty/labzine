@@ -1,0 +1,38 @@
+{% extends "base1col.html" %}
+{% load markup %}
+
+{% block title %}browse by tag : {{ tag.value|escape }}{% endblock %}
+{% block sectionid %}tags{% endblock %}
+{% block breadcrumb %}<a href="/">home</a> / tag / {{ tag.value }}{% endblock %}
+
+{% block content %}
+	<h2>items tagged &lsquo;{{ tag.value }}&rsquo;</h2>
+
+	{% if tag.article_set.all %}
+	
+	<h3>articles</h3>
+	<ul class="article-list">
+		{% for object in tag.article_set.all %}
+			{% include "articles/article_listing.html" %}
+		{% endfor %}
+	</ul>
+	{% endif %}
+
+	{% if tag.blog_set.all %}
+	<h3>blog entries</h3>
+	<ul class="article-list">
+		{% for blog in tag.blog_set.all %}
+			{% include "blog/blog_listing_short.html" %}
+		{% endfor %}
+	</ul>
+	{% endif %}
+
+	{% if tag.project_set.all %}
+	<h3>projects</h3>
+	<ul class="article-list">
+		{% for project in tag.project_set.all %}
+			{% include "articles/project_listing_short.html" %}
+		{% endfor %}
+	</ul>
+	{% endif %}
+{% endblock %}

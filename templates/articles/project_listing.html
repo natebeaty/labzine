@@ -1,0 +1,45 @@
+{% load markup %}
+<div class="project {% cycle clearLeft,even %}">
+	<div class="project-img-large">
+	{% if project.image_large %}
+		{% if project.image_large_url %}
+		<a href="{{ project.image_large_url }}"><img src="{{ project.image_large }}" alt="large project image" /></a>
+		{% else %}
+		<img src="{{ project.image_large }}" alt="large project image" />
+		{% endif %}
+	{% else %}
+		<img src="/media/img/project_large_default.gif" alt="large project image" />
+	{% endif %}
+	</div>
+	<div class="project-img-small1">
+	{% if project.image_small1 %}
+		{% if project.image_small1_url %}
+		<a href="{{ project.image_small1_url }}"><img src="{{ project.image_small1 }}" alt="small1 project image" /></a>
+		{% else %}
+		<img src="{{ project.image_small1 }}" alt="small1 project image" />
+		{% endif %}
+	{% else %}
+		<img src="/media/img/project_small1_default.gif" alt="small project image 1" />
+	{% endif %}
+	</div>
+	<div class="project-img-small2">
+	{% if project.image_small2 %}
+		{% if project.image_small2_url %}
+		<a href="{{ project.image_small2_url }}"><img src="{{ project.image_small2 }}" alt="small2 project image" /></a>
+		{% else %}
+		<img src="{{ project.image_small2 }}" alt="small2 project image" />
+		{% endif %}
+	{% else %}
+		<img src="/media/img/project_small2_default.gif" alt="small project image 2" />
+	{% endif %}
+	</div>
+	
+	<h3>Project {{ project.id|stringformat:"02d" }}</h3>
+	<h4 class="project-title">
+		{% if project.project_url %}
+		<a href="{{ project.project_url }}">{{ project.title }}</a>
+		{% else %}
+		{{ project.title }}
+		{% endif %}</h4>
+	{{ project.description|textile }}
+</div>

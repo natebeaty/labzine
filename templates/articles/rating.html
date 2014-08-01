@@ -1,0 +1,23 @@
+<div id="rater">
+	<ul class="star-rating small-star">
+		<li class="current-rating" style="width:{{ rating_percent }}px">Currently {{ rating_average }}/5.</li>
+		<li><a rel="nofollow" href="/rate/add/article/{{ article.id }}/1/" title="1 star out of 5" class="rate-link one-star">1</a></li>
+		<li><a rel="nofollow" href="/rate/add/article/{{ article.id }}/2/" title="2 stars out of 5" class="rate-link two-stars">2</a></li>
+		<li><a rel="nofollow" href="/rate/add/article/{{ article.id }}/3/" title="3 stars out of 5" class="rate-link three-stars">3</a></li>
+		<li><a rel="nofollow" href="/rate/add/article/{{ article.id }}/4/" title="4 stars out of 5" class="rate-link four-stars">4</a></li>
+		<li><a rel="nofollow" href="/rate/add/article/{{ article.id }}/5/" title="5 stars out of 5" class="rate-link five-stars">5</a></li>
+	</ul>
+	<span id="rating-message">	
+    {% if message %}
+        {{ message }}
+    {% endif %}
+    </span>
+    {% ifnotequal article.num_ratings 0 %}
+    ({{ article.num_ratings }} rating{{ article.num_ratings|pluralize }})
+    {% endifnotequal %}
+	{% if has_rated %}
+	<a class="rate-link" href="/rate/clear/article/{{ article.id }}" class="clear-rating" title="clear your rating">[X]</a>
+    {% else %}
+    Rate this:
+	{% endif %}
+</div>

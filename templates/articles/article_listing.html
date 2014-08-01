@@ -1,0 +1,7 @@
+{% load markup %}
+<li><span class="article-box" style="background:#{{ object.hex_color }}"><span class="article-box-number">{{ object.display_page_number|stringformat:"02d" }}</span></span>
+	<a class="article-link{% ifequal object.id article.id %} active{% endifequal %}" id="nav-article-{{ object.id }}" title="{{ object.name|escape }}" href="/issues/{{ object.issue.slug }}/articles/{{object.slug}}/" >
+		<span class="article-title">{{ object.title|escape }}</span> |
+		<span class="article-person">{{ object.art_people|escape }}</span>
+	</a>
+</li>

@@ -1,0 +1,29 @@
+{% load markup %}
+{% if blog.is_active %}
+<div class="blog-entry">
+	<h2><a href="{{ blog.get_absolute_url }}" title="perma-link for {{ blog.title|escape }}">{{ blog.title }}</a></h2>
+	{% if blog.image %}
+		<img class="blog-image" rel="nofollow" src="/media/{{ blog.image }}" />
+	{% endif %}
+    <div class="blog-text">
+	{% if blog.excerpt %}
+		{{ blog.excerpt|textile }}
+        </div>
+    	<div class="meta">
+			<p>
+            <a class="readmore" href="{{ blog.get_absolute_url }}" title="read entire entry for {{ blog.title|escape }}">Continue Reading Entry &raquo;</a>
+			| <a class="permalink" href="{{ blog.get_absolute_url }}" title="perma-link for {{ blog.title|escape }}">{{ blog.date_added|date:"F d, Y" }}</a>
+			</p>
+	{% else %}
+		{{ blog.body|textile }}
+		</div>
+		<div class="meta">
+			<p>
+			<a class="perma-link" href="{{ blog.get_absolute_url }}" title="perma-link for {{ blog.title|escape }}">{{ blog.date_added|date:"F d, Y" }}</a>
+			</p>
+	{% endif %}
+    </div>
+	
+	<hr class="dotted" />
+</div>
+{% endif %}

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load markup %}
+
+{% block title %}issue {{ issue.name|escape }} : articles{% endblock %}
+{% block sectionid %}issues{% endblock %}
+{% block extrahead %}
+    <style type="text/css" media="screen">
+        #content a { color:#{{ issue.hex_color }};}
+        #content a:hover { color:#000;}
+        a#butt-issues { background-color:#{{ issue.hex_color }}; }
+        /* {{ article.issue.name }}*/
+        /* all headers to current issue hex color */
+        h2,h3,h4 { color:#{{ issue.hex_color }}; }
+    </style>
+{% endblock %}
+{% block breadcrumb %}<a href="/">home</a> / issue {{ issue.name }}{% endblock %}
+
+{% block side-nav %}
+	{% if issue.image %}
+	<div class="issue-image-small"><a href="{{ issue.get_absolute_url }}" title="LAB {{ issue.name|escape}}"><img src="/media/{{ issue.image }}" alt="LAB issue {{ issue.name|escape }} cover" /></a></div>
+	{% endif %}
+	<h2 id="issue-{{ issue.slug }}"><span>issue {{ issue.name }}</span></h2>
+	<h3 id="contents"><span>select an article:</span></h3>
+
+	<ul class="article-list">
+	{% for object in issue.article_set.all %}
+    {% if object.is_active %}
+	    {% include "articles/article_li.html" %}
+    {% endif %}
+	{% endfor %}
+	</ul>
+{% endblock %}
+
+{% block content %}
+    <div id="feature-headers">
+        <h2>featured articles</h2>
+    	<h3>rate and review:</h3>
+    </div>
+    
+    <div id="feature-list">
+    {% for object in issue.feature_set.all %}
+        <div class="feature">
+            <a class="feature-box" style="border-color:#{{ object.article.hex_color }}" href="{{ object.article.get_absolute_url }}" title="{{ object.article.title|escape }}">
+            <img src="/media/{{ object.image }}" alt="thumb" /></a>
+
+    		<h3 class="feature-title">
+    		<a href="{{ object.article.get_absolute_url }}" title="{{ object.article.title|escape }}">
+    		<span class="article-title" style="color:#{{ object.article.hex_color }}">{{ object.article.title|escape }}</span><br />
+    		<span class="article-person">{{ object.article.art_people|escape }}</span>
+    		</a>
+    		</h3>
+            <div class="feature-text">
+            {{ object.text|textile }}
+            </div>
+        </div>
+    	<hr class="dotted" />
+    {% endfor %}
+    </div>
+	
+{% endblock %}

@@ -1,0 +1,21 @@
+{% load markup %}
+<ol class="comment-list">
+{% for comment in comment_list %}
+<li class="comment" id="c{{ comment.id }}">
+    <dl>
+		<dd class="message">
+		   {{ comment.comment|textile|urlizetrunc:"40" }}
+		</dd>
+		<dt>
+		{% if comment.person_url %}
+		<a href="{{ comment.person_url }}">{{ comment.person_name }}</a>
+		{% else %}
+		{{ comment.person_name }}
+		{% endif %}
+		</a><span class="timestamp">{{ comment.submit_date|date:"m/d/y" }} at {{ comment.submit_date|date:"P" }}</span>
+		</dt>
+	</dl>
+	<hr noshade="noshade" class="dotted" />
+</li>
+{% endfor %}
+</ol>

@@ -1,0 +1,79 @@
+{% extends "base1col.html" %}
+{% block title %}contact{% endblock %}
+{% block sectionid %}contact{% endblock %}
+{% block breadcrumb %}<a href="/">Home</a> / Contact{% endblock %}
+{% block side-nav %}
+{% endblock %}
+
+{% block content %}
+	<h2>contact</h2>
+
+	<div class="intro">
+
+		<p>Contact form is closed for LAB.</p>
+		{# <p> #}
+		{# 	Feedback? Questions? Link suggestion? Recipes or knitting tips? Fire away. Feel free to submit material (preferably in PDF format, and smaller than 2mb). #}
+		{# </p> #}
+	</div>
+
+
+{% if form.has_errors %}
+<div class="alert">
+<h3>There were errors in your submission.</h3>
+<p>Please address the marked field{{ errors|pluralize }}:</p>
+</div>
+{% endif %}
+
+
+{% comment %}
+<form id="contact-form" enctype="multipart/form-data" action="" method="post" >
+<fieldset>
+	{% if form.message.errors %}
+		<p class="error">{{ form.message.errors|join:", "}}</p>
+	{% endif %}
+	 <label class="required" for="id_message">Message:</label>
+	{{ form.message }}<br />
+
+	{% if form.subject.errors %}
+		<p class="error">{{ form.subject.errors|join:", "}}</p>
+	{% endif %}
+	 <label for="id_subject">Subject:</label>
+	{{ form.subject }}<br />
+
+	{% if form.name.errors %}
+		<p class="error">{{ form.name.errors|join:", "}}</p>
+	{% endif %}
+	 <label class="required" for="id_name">Name:</label>
+	{{ form.name }}<br />
+
+	{% if form.from.errors %}
+		<p class="error">{{ form.from.errors|join:", "}}</p>
+	{% endif %}
+	 <label class="required" for="id_from">Email:</label>
+	{{ form.from }}<br />
+
+	<div class="spacer">&nbsp;</div>
+	
+	{% if form.fileUpload.errors %}
+		<p class="error">{{ form.fileUpload.errors|join:", "}}</p>
+	{% endif %}
+	 <label for="id_fileUpload">File Upload:</label>
+	{{ form.fileUpload }}{{ form.fileUpload_file }}<br />
+
+</fieldset>
+
+	<div id="actions"><input id="submit-button" type="submit" value="submit!" /></div>
+</form>
+
+<p class="note"> Curious about copyright issues? Check out <a href="/pages/copyrights/">the fine
+print</a>.</p>
+
+<script type="text/javascript">
+		var frmvalidator = new Validator("contact-form");
+		frmvalidator.addValidation("from","req","Please enter your email.");
+		frmvalidator.addValidation("from","email","Email did not validate. Please double-check your email.");
+		frmvalidator.addValidation("name","req","Please enter a name.");
+		frmvalidator.addValidation("message","req","Please enter a message.");
+</script>
+{% endcomment %}
+{% endblock %}

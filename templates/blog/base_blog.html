@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load markup %}
+{% load blog_extras %}
+
+{% block title %}blog{% endblock %}
+{% block sectionid %}blog{% endblock %}
+{% block extrahead %}
+{% get_blog_vars %}
+<style type="text/css" media="screen">
+	#side-nav { width:13em;  }
+	#content { width:48em; }
+	.project h3 { color:#{{ featured_issue.hex_color }};}
+	a { color:#{{ featured_issue.hex_color }};}
+	a:hover { color:#000;}
+	#content { padding-top:2em; }
+</style>
+{% endblock %}
+{% block breadcrumb %}<a href="/">Home</a> / <a href="/projects/">projects</a>{% endblock %}
+
+{% block side-nav %}
+{% get_blog_vars %}
+<h3>feeds</h3>
+
+<ul class="feed-list">
+	<li><a class="feed" href="/rss/blog/">blog entries</a></li>
+	<!-- <li><a class="feed" href="/rss/comments/">blog comments</a></li> -->
+</ul>
+
+<h3>tags</h3>
+<ul class="tag-list">
+{% for tag in tags_list %}
+	<li><a href="/tag/{{ tag.norm_value }}/">{{ tag.value }}</a></li>
+{% endfor %}
+</ul>
+
+<h3>archives</h3>
+
+<ul class="archive-list">
+{% for month in blog_month_list %}
+	<li><a href="/blog/{{ month|date:"Y/M"|lower }}/">{{ month|date:"M Y" }}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock %}
+
+{% block content %}
+
+	{% for blog in latest %}
+		{% include "blog/blog_listing.html" %}
+	{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,55 @@
+/* Neutralize CSS -- from CSS master Jeff Croft  */ 
+
+/* Neutralize styling:
+   Remove padding and margin on some elements: */
+html, body, form, fieldset {
+	margin: 0;
+	padding: 0;
+}
+
+/* Neutralize styling:
+   Linked image should not have borders */
+a img {
+	border: none;
+}
+
+/* Neutralize styling:
+   Elements with a vertical margin: */
+h1, h2, h3, h4, h5, h6, p, pre,blockquote, ul, ol, dl, address {
+	margin: .5em 0;
+	padding: 0;
+}
+
+/* Apply left margin:
+   Only to the few elements that need it: */
+dd, blockquote {
+	margin-left: 1em;
+}
+
+ul, ol {
+    margin-left: 1em;
+}
+li { margin-bottom:.2em; }
+
+
+/* Miscellaneous conveniences: */
+label {
+	cursor: pointer;
+}
+fieldset {
+	border: none;
+	margin: 0;
+	padding: 0;
+}
+
+/* Form field text-scaling */
+input, select, textarea {
+	font-size: 12px;
+	font-family: "Lucida Grande", Verdana, Arial, Helvetica, serif;
+}
+
+/* Form field text-scaling */
+input, select, textarea {
+	font-size: 12px;
+	font-family: "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+}

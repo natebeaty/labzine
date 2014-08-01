@@ -1,0 +1,47 @@
+{% extends "base1col.html" %}
+{% load markup %}
+{% load article_extras %}
+
+{% block title %}issue {{ issue.name|escape }}{% endblock %}
+{% block sectionid %}issues{% endblock %}
+{% block breadcrumb %}<a href="/">Home</a> / <a href="/issues/">issues</a> / {{ issue.name }}{% endblock %}
+
+{% block content %}
+	<div class="issue homepage">
+		{% if issue.image %}
+		<div class="issue-image"><img src="/media/{{ issue.image }}" alt="LAB issue {{ issue.name|escape }} cover" /></div>
+		{% else %}
+		<div class="issue-image"><img src="/media/images/issues/default.jpg" alt="" /></div>
+		{% endif %}
+
+		<div class="description">{{ issue.description|textile }}</div>
+
+		<ul class="issueLinks">
+			<li><a class="headerLink" href="/media/{{ issue.webpdf }}"><span class="linkTitle">download</span> <span class="linkExtra">the PDF version</span></a>
+			<span class="linkExplanation">({{ issue.webpdf_size }}, free download)</span></li>
+
+			<li><a class="headerLink" href="/issues/{{ issue.slug }}/features/"><span class="linkTitle">browse</span> <span class="linkExtra">the articles online</span></a>
+			<span class="linkExplanation">(and review &lsquo;em or leave comments)</span></li>
+
+			<li><a class="headerLink" href="{{ issue.print_version_link }}"><span class="linkTitle">order</span> <span class="linkExtra">print version</span></a>
+			<span class="linkExplanation">(available via print-on-demand)</span></li>
+		</ul>
+			
+		{% if issue.date_start %}
+		<p class="date">{{ issue.date_start|date:"F d, Y" }}{% if issue.time %}, {{ issue.time }}{% endif %}
+			{% if issue.date_end %}
+			- {{ issue.date_end|date:"F d, Y" }}
+			{% endif %}
+		</p>
+		{% endif %}
+		{% if issue.url %}
+		<p class="url"><a href="{{ issue.url }}" class="external">Visit Website</a></p>
+		{% endif %}
+	</div>
+	
+{% endblock %}
+
+{% block content-secondary %}
+
+
+{% endblock %}
